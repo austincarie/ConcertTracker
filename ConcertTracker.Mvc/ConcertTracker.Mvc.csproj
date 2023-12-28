@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <ItemGroup>
+    <ProjectReference Include="..\ConcertTracker.Data\ConcertTracker.Data.csproj" />
+    <ProjectReference Include="..\ConcertTracker.Models\ConcertTracker.Models.csproj" />
+    <ProjectReference Include="..\ConcertTracker.Services\ConcertTracker.Services.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+</Project>
