@@ -49,4 +49,16 @@ public class BandService : IBandService
             Genre = band.Genre
         };
     }
+
+    public async Task<bool> UpdateBandAsync(BandEdit model)
+    {
+        BandEntity? entity = await _context.Bands.FindAsync(model.Id);
+
+        if (entity is null)
+            return false;
+
+        entity.Name = model.Name;
+        entity.Genre = model.Genre;
+        return await _context.SaveChangesAsync() == 1;
+    }
 }
