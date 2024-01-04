@@ -36,4 +36,17 @@ public class BandService : IBandService
         _context.Bands.Add(entity);
         return await _context.SaveChangesAsync() == 1;
     }
+
+    public async Task<BandDetail?> GetBandAsync(int id)
+    {
+        BandEntity? band = await _context.Bands
+            .FirstOrDefaultAsync(b => b.Id == id);
+        
+        return band is null ? null : new()
+        {
+            Id = band.Id,
+            Name = band.Name,
+            Genre = band.Genre
+        };
+    }
 }

@@ -34,4 +34,15 @@ public class BandController : Controller
 
         return RedirectToAction(nameof(Index));
     }
+
+    [HttpGet]
+    public async Task<IActionResult> Details(int id)
+    {
+        BandDetail? model = await _service.GetBandAsync(id);
+
+        if (model is null)
+            return NotFound();
+
+        return View(model);
+    }
 }
