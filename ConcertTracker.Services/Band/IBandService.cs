@@ -8,4 +8,5 @@ public interface IBandService
     Task<bool> CreateBandAsync(BandCreate model);
     Task<BandDetail?> GetBandAsync(int id);
     Task<bool> UpdateBandAsync(BandEdit model);
+    Task<bool> DeleteBandAsync(int id);
 }

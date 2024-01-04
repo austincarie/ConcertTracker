@@ -61,4 +61,14 @@ public class BandService : IBandService
         entity.Genre = model.Genre;
         return await _context.SaveChangesAsync() == 1;
     }
+
+    public async Task<bool> DeleteBandAsync(int id)
+    {
+        BandEntity? entity = await _context.Bands.FindAsync(id);
+        if (entity is null)
+            return false;
+
+        _context.Bands.Remove(entity);
+        return await _context.SaveChangesAsync() == 1;
+    }
 }

@@ -75,4 +75,22 @@ public class BandController : Controller
         ModelState.AddModelError("Save Error", "Could not update the Band. Please try again.");
         return View(model);
     }
+
+    [HttpGet]
+    public async Task<IActionResult> Delete(int id)
+    {
+        BandDetail? band = await _service.GetBandAsync(id);
+        if (band is null)
+            return RedirectToAction(nameof(Index));
+
+        return View(band);
+    }
+
+    [HttpPost]
+    [ActionName(nameof(Delete))]
+    public async Task<IActionResult> ConfirmDelete(int id)
+    {
+        await _service.DeleteBandAsync(id);
+        return RedirectToAction(nameof(Index));
+    }
 }
