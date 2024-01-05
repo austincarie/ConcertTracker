@@ -36,4 +36,17 @@ public class VenueService : IVenueService
         _context.Venues.Add(entity);
         return await _context.SaveChangesAsync() == 1;
     }
+
+    public async Task<VenueDetail?> GetVenueAsync(int id)
+    {
+        VenueEntity? venue = await _context.Venues
+            .FirstOrDefaultAsync(v => v.Id == id);
+        
+        return venue is null ? null : new()
+        {
+            Id = venue.Id,
+            Name = venue.Name,
+            Location = venue.Location
+        };
+    }
 }

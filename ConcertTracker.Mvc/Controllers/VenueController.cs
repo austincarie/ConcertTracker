@@ -34,4 +34,15 @@ public class VenueController : Controller
 
         return RedirectToAction(nameof(Index));
     }
+
+    [HttpGet]
+    public async Task<IActionResult> Details(int id)
+    {
+        VenueDetail? model = await _service.GetVenueAsync(id);
+
+        if (model is null)
+            return NotFound();
+
+        return View(model);
+    }
 }
