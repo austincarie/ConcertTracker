@@ -2,6 +2,7 @@ using ConcertTracker.Data;
 using ConcertTracker.Data.Entities;
 using ConcertTracker.Services.Band;
 using ConcertTracker.Services.User;
+using ConcertTracker.Services.Venue;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +18,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IBandService, BandService>();
+builder.Services.AddScoped<IVenueService, VenueService>();
 
 builder.Services.AddDefaultIdentity<UserEntity>()
     .AddEntityFrameworkStores<ApplicationDbContext>();

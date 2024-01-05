@@ -1,11 +1,36 @@
+@model IEnumerable<VenueListItem>
 @{
     ViewData["Title"] = "Venues";
 }
 
-<div class="text-center">
-    <p>This is where the venues will go once they are added in</p>
-</div>
-
 <li class="nav-item">
     <a class="nav-link text-dark" asp-area="" asp-controller="Venue" asp-action="Create">Add Venue</a>
 </li>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.Name
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                    <span>|</span>
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                    <span>|</span>
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
