@@ -45,4 +45,52 @@ public class VenueController : Controller
 
         return View(model);
     }
+
+    [HttpGet]
+    public async Task<IActionResult> Edit(int id)
+    {
+        VenueDetail? venue = await _service.GetVenueAsync(id);
+        if (venue is null)
+            return NotFound();
+
+        VenueEdit model = new()
+        {
+            Id = venue.Id,
+            Name = venue.Name ?? "",
+            Location = venue.Location ?? ""
+        };
+
+        return View(model);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Edit(int id, VenueEdit model)
+    {
+        if (!ModelState.IsValid)
+            return View(model);
+        
+        if (await _service.UpdateVenueAsync(model))
+            return RedirectToAction(nameof(Details), new {id = id});
+        
+        ModelState.AddModelError("Save Error", "Could not update the Venue. Please try again.");
+        return View(model);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> Delete(int id)
+    {
+        VenueDetail? venue = await _service.GetVenueAsync(id);
+        if (venue is null)
+            return RedirectToAction(nameof(Index));
+
+        return View(venue);
+    }
+
+    [HttpPost]
+    [ActionName(nameof(Delete))]
+    public async Task<IActionResult> ConfirmDelete(int id)
+    {
+        await _service.DeleteVenueAsync(id);
+        return RedirectToAction(nameof(Index));
+    }
 }

@@ -18,4 +18,5 @@ public class ApplicationDbContext : IdentityDbContext<UserEntity, IdentityRole<i
 
     public DbSet<BandEntity> Bands {get; set;} = null!;
     public DbSet<VenueEntity> Venues {get; set;} = null!;
+    public DbSet<ShowEntity> Shows {get; set;} = null!;
 }

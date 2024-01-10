@@ -49,4 +49,26 @@ public class VenueService : IVenueService
             Location = venue.Location
         };
     }
+
+    public async Task<bool> UpdateVenueAsync(VenueEdit model)
+    {
+        VenueEntity? entity = await _context.Venues.FindAsync(model.Id);
+
+        if (entity is null)
+            return false;
+
+        entity.Name = model.Name;
+        entity.Location = model.Location;
+        return await _context.SaveChangesAsync() == 1;
+    }
+
+    public async Task<bool> DeleteVenueAsync(int id)
+    {
+        VenueEntity? entity = await _context.Venues.FindAsync(id);
+        if (entity is null)
+            return false;
+
+        _context.Venues.Remove(entity);
+        return await _context.SaveChangesAsync() == 1;
+    }
 }
