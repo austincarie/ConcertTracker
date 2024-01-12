@@ -1,6 +1,7 @@
 using ConcertTracker.Data;
 using ConcertTracker.Data.Entities;
 using ConcertTracker.Models.Band;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace ConcertTracker.Services.Band;
@@ -71,4 +72,18 @@ public class BandService : IBandService
         _context.Bands.Remove(entity);
         return await _context.SaveChangesAsync() == 1;
     }
+
+    
+    public async Task<IEnumerable<SelectListItem>> BandSelectList()
+    {
+        IEnumerable<SelectListItem> bandList = _context.Bands
+            .Select(b => new SelectListItem()
+                {
+                    Text = b.Name,
+                    Value = b.Id.ToString()
+                });
+        return bandList;
+
+    }
+    
 }

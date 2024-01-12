@@ -19,6 +19,6 @@ public class ShowEntity
     public virtual VenueEntity Venue {get; set;} = null!;
 
     [Required]
-    public string Date {get; set;} = null!;
+    public DateTime Date {get; set;}
 }
 //* id, band, venue, date
