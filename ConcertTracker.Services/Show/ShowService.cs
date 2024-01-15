@@ -41,5 +41,31 @@ public class ShowService : IShowService
         return await _context.SaveChangesAsync() == 1;
     }
 
+    public async Task<ShowDetail?> GetShowAsync(int id)
+    {
+        ShowEntity? show = await _context.Shows
+            .FirstOrDefaultAsync(s => s.Id == id);
+
+        return show is null ? null : new()
+        {
+            Id = show.Id,
+            BandId = show.BandId,
+            VenueId = show.VenueId,
+            Date = show.Date
+        };
+    }
+
+    public async Task<bool> UpdateShowAsync(ShowEdit model)
+    {
+        ShowEntity? entity = await _context.Shows.FindAsync(model.Id);
+
+        if (entity is null)
+            return false;
+
+        entity.BandId = model.BandId;
+        entity.VenueId = model.VenueId;
+        return await _context.SaveChangesAsync() == 1;
+    }
+
     
 }

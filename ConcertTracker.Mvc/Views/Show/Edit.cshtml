@@ -1,19 +1,23 @@
-@model ShowCreate
+@model ShowEdit
 @{
-    ViewData["Title"] = "Show Create";
+    ViewData["Title"] = "Edit Show";
 }
 
-<h1>Create a Show</h1>
+<h1>Edit Show</h1>
 <hr>
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-<form asp-action="Create" method="post" class="row g-3">
+<form asp-action="Edit" class="row g-3">
+    <input asp-for="Id" hidden disabled>
     <div class="col-md-6">
         <label asp-for="BandId" class="form-label"></label>
         <input asp-for="BandId" class="form-control">
+        <span asp-validation-for="BandId" class="text-danger"></span>
     </div>
     <div class="col-md-6">
         <label asp-for="VenueId" class="form-label"></label>
         <input asp-for="VenueId" class="form-control">
+        <span asp-validation-for="VenueId" class="text-danger"></span>
     </div>
     <div class="col-md-6">
         <label asp-for="Date" class="form-label"></label>
@@ -21,7 +25,7 @@
     </div>
     <div class="col d-flex justify-content-between align-items-baseline">
         <a asp-action="Index" class="">Back to List</a>
-        <input type="submit" value="Create" class="btn btn-primary">
+        <input type="submit" value="Update" class="btn btn-primary">
     </div>
 </form>
 
