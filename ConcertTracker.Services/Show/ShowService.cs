@@ -67,5 +67,15 @@ public class ShowService : IShowService
         return await _context.SaveChangesAsync() == 1;
     }
 
+    public async Task<bool> DeleteShowAsync(int id)
+    {
+        ShowEntity? entity = await _context.Shows.FindAsync(id);
+        if (entity is null)
+            return false;
+
+        _context.Shows.Remove(entity);
+        return await _context.SaveChangesAsync() == 1;
+    }
+
     
 }

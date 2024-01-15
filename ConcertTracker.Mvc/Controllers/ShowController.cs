@@ -82,4 +82,22 @@ public class ShowController : Controller
         ModelState.AddModelError("Save Error", "Could not update the show. Please try again.");
         return View(model);
     }
+
+    [HttpGet]
+    public async Task<IActionResult> Delete(int id)
+    {
+        ShowDetail? show = await _service.GetShowAsync(id);
+        if (show is null)
+            return RedirectToAction(nameof(Index));
+
+        return View(show);
+    }
+
+    [HttpPost]
+    [ActionName(nameof(Delete))]
+    public async Task<IActionResult> ConfirmDelete(int id)
+    {
+        await _service.DeleteShowAsync(id);
+        return RedirectToAction(nameof(Index));
+    }
 }
