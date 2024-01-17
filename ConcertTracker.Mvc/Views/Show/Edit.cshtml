@@ -11,7 +11,7 @@
     <input asp-for="Id" hidden disabled>
     <div class="col-md-6">
         <label asp-for="BandId" class="form-label"></label>
-        <input asp-for="BandId" class="form-control">
+        @Html.DropDownList("BandId", ViewBag.BandList as SelectList, "Select an item", new { @class = "form-control" })
         <span asp-validation-for="BandId" class="text-danger"></span>
     </div>
     <div class="col-md-6">

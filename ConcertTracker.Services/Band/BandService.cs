@@ -74,6 +74,7 @@ public class BandService : IBandService
     }
 
     
+    /*
     public async Task<IEnumerable<SelectListItem>> BandSelectList()
     {
         IEnumerable<SelectListItem> bandList = _context.Bands
@@ -83,7 +84,20 @@ public class BandService : IBandService
                     Value = b.Id.ToString()
                 });
         return bandList;
+        //* Rework this method to take in BandList model
+    }
+    */
 
+    public async Task<List<BandList>> GetBandListAsync()
+    {
+        List<BandList> bandList = await _context.Bands
+            .Select(b => new BandList()
+            {
+                Id = b.Id,
+                Name = b.Name
+            })
+            .ToListAsync();
+        return bandList;
     }
     
 }

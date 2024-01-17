@@ -24,16 +24,17 @@ public class ShowController : Controller
     }
 
     [HttpGet]
-    public IActionResult Create()
+    public async Task<IActionResult> Create()
     {
+        ViewBag.BandList = new SelectList(await _bandService.GetBandListAsync(), "Id", "Name");
         return View();
     }
 
     [HttpPost]
     public async Task<IActionResult> Create(ShowCreate model)
     {
-        //var bandSelectList = new SelectList(await _bandService.BandSelectList(), "Name", "Id");
-        //ViewBag.bandList = bandSelectList;
+        ViewBag.BandList = new SelectList(await _bandService.GetBandListAsync(), "Id", "Name");
+        
         if (!ModelState.IsValid)
             return View(model);
 
@@ -55,6 +56,7 @@ public class ShowController : Controller
     [HttpGet]
     public async Task<IActionResult> Edit(int id)
     {
+        ViewBag.BandList = new SelectList(await _bandService.GetBandListAsync(), "Id", "Name");
         ShowDetail? show = await _service.GetShowAsync(id);
         if (show is null)
             return NotFound();
@@ -73,6 +75,7 @@ public class ShowController : Controller
     [HttpPost]
     public async Task<IActionResult> Edit(int id, ShowEdit model)
     {
+        ViewBag.BandList = new SelectList(await _bandService.GetBandListAsync(), "Id", "Name");
         if (!ModelState.IsValid)
             return View(model);
 
