@@ -1,6 +1,7 @@
 using ConcertTracker.Models.Show;
 using ConcertTracker.Services.Band;
 using ConcertTracker.Services.Show;
+using ConcertTracker.Services.Venue;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -10,10 +11,12 @@ public class ShowController : Controller
 {
     private IShowService _service;
     private IBandService _bandService;
-    public ShowController(IShowService service, IBandService bandService)
+    private IVenueService _venueService;
+    public ShowController(IShowService service, IBandService bandService, IVenueService venueService)
     {
         _service = service;
         _bandService = bandService;
+        _venueService = venueService;
     }
 
     public async Task<IActionResult> Index()
@@ -27,6 +30,7 @@ public class ShowController : Controller
     public async Task<IActionResult> Create()
     {
         ViewBag.BandList = new SelectList(await _bandService.GetBandListAsync(), "Id", "Name");
+        ViewBag.VenueList = new SelectList(await _venueService.GetVenueListAsync(), "Id", "Name");
         return View();
     }
 
@@ -34,6 +38,7 @@ public class ShowController : Controller
     public async Task<IActionResult> Create(ShowCreate model)
     {
         ViewBag.BandList = new SelectList(await _bandService.GetBandListAsync(), "Id", "Name");
+        ViewBag.VenueList = new SelectList(await _venueService.GetVenueListAsync(), "Id", "Name");
         
         if (!ModelState.IsValid)
             return View(model);
@@ -57,6 +62,7 @@ public class ShowController : Controller
     public async Task<IActionResult> Edit(int id)
     {
         ViewBag.BandList = new SelectList(await _bandService.GetBandListAsync(), "Id", "Name");
+        ViewBag.VenueList = new SelectList(await _venueService.GetVenueListAsync(), "Id", "Name");
         ShowDetail? show = await _service.GetShowAsync(id);
         if (show is null)
             return NotFound();
@@ -76,6 +82,7 @@ public class ShowController : Controller
     public async Task<IActionResult> Edit(int id, ShowEdit model)
     {
         ViewBag.BandList = new SelectList(await _bandService.GetBandListAsync(), "Id", "Name");
+        ViewBag.VenueList = new SelectList(await _venueService.GetVenueListAsync(), "Id", "Name");
         if (!ModelState.IsValid)
             return View(model);
 

@@ -9,4 +9,5 @@ public interface IVenueService
     Task<VenueDetail?> GetVenueAsync(int id);
     Task<bool> UpdateVenueAsync(VenueEdit model);
     Task<bool> DeleteVenueAsync(int id);
+    Task<List<VenueList>> GetVenueListAsync();
 }

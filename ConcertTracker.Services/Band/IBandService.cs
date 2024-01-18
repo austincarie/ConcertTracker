@@ -10,6 +10,5 @@ public interface IBandService
     Task<BandDetail?> GetBandAsync(int id);
     Task<bool> UpdateBandAsync(BandEdit model);
     Task<bool> DeleteBandAsync(int id);
-    //Task<IEnumerable<SelectListItem>> BandSelectList();
     Task<List<BandList>> GetBandListAsync();
 }

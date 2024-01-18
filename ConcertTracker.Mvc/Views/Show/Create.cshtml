@@ -13,7 +13,7 @@
     </div>
     <div class="col-md-6">
         <label asp-for="VenueId" class="form-label"></label>
-        <input asp-for="VenueId" class="form-control">
+        @Html.DropDownList("VenueId", ViewBag.VenueList as SelectList, "Select an item", new { @class = "form-control" })
     </div>
     <div class="col-md-6">
         <label asp-for="Date" class="form-label"></label>

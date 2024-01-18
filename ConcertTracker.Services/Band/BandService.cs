@@ -69,24 +69,13 @@ public class BandService : IBandService
         if (entity is null)
             return false;
 
+        var shows = await _context.Shows.Where(s => s.BandId == entity.Id).ToListAsync();
+        _context.Shows.RemoveRange(shows);
+        await _context.SaveChangesAsync();
+        
         _context.Bands.Remove(entity);
         return await _context.SaveChangesAsync() == 1;
     }
-
-    
-    /*
-    public async Task<IEnumerable<SelectListItem>> BandSelectList()
-    {
-        IEnumerable<SelectListItem> bandList = _context.Bands
-            .Select(b => new SelectListItem()
-                {
-                    Text = b.Name,
-                    Value = b.Id.ToString()
-                });
-        return bandList;
-        //* Rework this method to take in BandList model
-    }
-    */
 
     public async Task<List<BandList>> GetBandListAsync()
     {

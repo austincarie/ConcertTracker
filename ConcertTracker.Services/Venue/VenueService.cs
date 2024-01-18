@@ -68,7 +68,23 @@ public class VenueService : IVenueService
         if (entity is null)
             return false;
 
+        var shows = await _context.Shows.Where(s => s.VenueId == entity.Id).ToListAsync();
+        _context.Shows.RemoveRange(shows);
+        await _context.SaveChangesAsync();
+
         _context.Venues.Remove(entity);
         return await _context.SaveChangesAsync() == 1;
+    }
+
+    public async Task<List<VenueList>> GetVenueListAsync()
+    {
+        List<VenueList> venueList = await _context.Venues
+            .Select(v => new VenueList()
+            {
+                Id = v.Id,
+                Name = v.Name
+            })
+            .ToListAsync();
+        return venueList;
     }
 }
